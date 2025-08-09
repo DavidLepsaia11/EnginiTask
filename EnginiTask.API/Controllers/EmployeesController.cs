@@ -29,16 +29,18 @@ namespace EnginiTask.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> Get(int id)
         {
-            var employee = _service.Get(id); 
-            object? Shape(Employee? x) => x is null ? null : new
-            {
-                x.Id,
-                x.Name,
-                x.ManagerId,
-                Manager = Shape(x.Manager)
-            };
+            var employee = _service.Get(id);
             if (employee is null) return NotFound();
-            return Ok(Shape(employee));
+            object Shape(Employee n) => new
+            {
+                n.Id,
+                n.Name,
+                n.ManagerId,
+                Subordinates = (n.Subordinates ?? Array.Empty<Employee>())
+                      .Select(Shape).ToList() 
+            };
+            var resp = Shape(employee); 
+            return Ok(resp);
         }
     }
 }

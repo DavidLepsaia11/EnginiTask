@@ -26,8 +26,8 @@ namespace EnginiTask.Repository.Database.Configurations.Domains
                 .Property(e => e.ManagerId);
 
             _modelBuilder.Entity<Employee>()
-            .HasOne(e => e.Manager)
-            .WithMany()
+            .HasMany(e => e.Subordinates)
+            .WithOne()
             .HasForeignKey(x => x.ManagerId);
 
             _modelBuilder.Entity<Employee>()
