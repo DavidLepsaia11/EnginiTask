@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 namespace EnginiTask.Tests
 {
     [Collection("DbFixture")]
-    public sealed class EmployeeTests : UnitTestBase
+    public sealed class EmployeesTests : UnitTestBase
     {
         private readonly EmployeesController _controller;
 
-        public EmployeeTests()
+        public EmployeesTests()
         {
             _controller = _services
             .BuildServiceProvider()
