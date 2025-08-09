@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace EnginiTask.API
+namespace EnginiTask.API.Middlewares
 {
     public sealed class ExceptionHandler
     {
@@ -32,7 +32,7 @@ namespace EnginiTask.API
             var errorResponse = new
             {
                 // StatusCode = context.Response.StatusCode,
-                Message = exception.Message
+                exception.Message
             };
 
             var jsonResponse = JsonSerializer.Serialize(errorResponse);
