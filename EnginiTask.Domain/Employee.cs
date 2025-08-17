@@ -8,6 +8,6 @@
 
         public int? ManagerId { get; set; }
 
-        public virtual ICollection<Employee> Subordinates { get; set; }
+        public ICollection<Employee> Subordinates { get; set; }
     }
 }

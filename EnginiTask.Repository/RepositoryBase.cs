@@ -8,7 +8,7 @@ namespace EnginiTask.Repository
     public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
     where TEntity : class
     {
-        private readonly EmployeesDbContext _context;
+        protected readonly EmployeesDbContext _context;
         protected readonly DbSet<TEntity> _dbSet;
 
         protected RepositoryBase(EmployeesDbContext context)

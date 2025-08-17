@@ -46,7 +46,7 @@ namespace EnginiTask.Repository.Migrations
 
                     b.HasIndex("ManagerId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
 
                     b.HasData(
                         new

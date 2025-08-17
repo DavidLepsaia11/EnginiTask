@@ -2,7 +2,6 @@
 using EnginiTask.Service.Interfaces.Repositories;
 using EnginiTask.Service.Interfaces.Services;
 
-
 namespace EnginiTask.Service
 {
     public class EmployeeService : ServiceBase<Employee, IEmployeeRepository>, IEmployeeService
@@ -10,6 +9,9 @@ namespace EnginiTask.Service
         public EmployeeService(IEmployeeRepository repository) : base(repository)
         {
         }
-       
+
+        public Task<EmployeeNode?> GetHierarchyAsync(int Id) =>
+            _repository.GetHierarchyAsync(Id);
+
     }
 }

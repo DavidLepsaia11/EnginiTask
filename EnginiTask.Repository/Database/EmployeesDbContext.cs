@@ -9,13 +9,18 @@ namespace EnginiTask.Repository.Database
     {
         public DbSet<Employee> Employees { get; set; }
 
+        public DbSet<EmployeeFlat> EmployeeSubtree => Set<EmployeeFlat>(); // keyless
+
+
         public EmployeesDbContext(DbContextOptions<EmployeesDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ConfigureEntities();
-            modelBuilder.SeedDefaultData();
+            modelBuilder.Entity<EmployeeFlat>()
+                .HasNoKey()
+                .ToView((string?)null); // query type only
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using EnginiTask.Domain;
 using EnginiTask.Repository.Database;
+using EnginiTask.Service.Interfaces.Repositories;
 using EnginiTask.Service.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace EnginiTask.API.Controllers
     {
         private readonly IEmployeeService _service;
 
-        public EmployeesController(IEmployeeService service, EmployeesDbContext db)
+        public EmployeesController(IEmployeeService service)
         {
             _service = service;
         }
@@ -27,20 +28,11 @@ namespace EnginiTask.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employee>> Get(int id)
+        public async Task<ActionResult<EmployeeNode>> Get(int id)
         {
-            var employee = _service.Get(id);
+            var employee = await _service.GetHierarchyAsync(id);
             if (employee is null) return NotFound();
-            object Shape(Employee n) => new
-            {
-                n.Id,
-                n.Name,
-                n.ManagerId,
-                Subordinates = (n.Subordinates ?? Array.Empty<Employee>())
-                      .Select(Shape).ToList() 
-            };
-            var resp = Shape(employee); 
-            return Ok(resp);
+            return Ok(employee);
         }
     }
 }

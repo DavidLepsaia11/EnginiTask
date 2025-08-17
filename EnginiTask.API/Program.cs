@@ -4,8 +4,7 @@ using EnginiTask.Service;
 using EnginiTask.Service.Interfaces.Repositories;
 using EnginiTask.Service.Interfaces.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Text.Json.Serialization.Metadata;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,8 +17,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<EmployeesDbContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-               .UseLazyLoadingProxies());
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+             
 
 
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
